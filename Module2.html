@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Add Remove Input Fields Dynamically Using jQuery</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.form-elements {
+			margin-top: 10px;
+		}
+
+		#frm-add-data .form-group {
+			margin-left: 13px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<h2>Add Remove Input Fields Dynamically Using jQuery</h2>
+
+		<form class="form-inline" id="frm-add-data" action="javascript:void(0)">
+
+			<div class="field_wrapper">
+				<div>
+					<div class="form-group">
+						<label for="product_name">Product Name:</label>
+						<input type="text" class="form-control" placeholder="Enter name"
+							name="product_name[]">
+					</div>
+					<div class="form-group">
+						<label for="amount">Amount:</label>
+						<input type="number" class="form-control" placeholder="Enter amount"
+							name="amount[]">
+					</div>
+					<div class="form-group">
+						<a href="javascript:void(0);" class="add_button" title="Add field">+ Add More</a>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+
+			var maxField = 5; // Total 5 product fields we add
+
+			var addButton = $('.add_button'); // Add more button selector
+
+			var wrapper = $('.field_wrapper'); // Input fields wrapper
+
+			var fieldHTML = `<div class="form-elements">
+					<div class="form-group">
+							<label for="product_name">Product Name:</label>
+					<input type="text" class="form-control" placeholder="Enter name" name="product_name[]">
+					</div>
+					<div class="form-group">
+					<label for="amount">Amount:</label>
+					<input type="number" class="form-control" placeholder="Enter amount" name="amount[]">
+					</div>
+					<div class="form-group">
+					<a href="javascript:void(0);" class="remove_button" title="Add field">Remove</a>
+					</div>
+				</div>`; //New input field html 
+
+			var x = 1; //Initial field counter is 1
+
+			$(addButton).click(function () {
+				//Check maximum number of input fields
+				if (x < maxField) {
+					x++; //Increment field counter
+					$(wrapper).append(fieldHTML);
+				}
+			});
+
+			//Once remove button is clicked
+			$(wrapper).on('click', '.remove_button', function (e) {
+				e.preventDefault();
+				$(this).parent().closest(".form-elements").remove();
+				x--; //Decrement field counter
+			});
+		});
+	</script>
+
+</body>
+
+</html>
